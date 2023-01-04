@@ -1,0 +1,57 @@
+{
+	"name": "Json1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "BMW.json",
+				"folderPath": "02012023/111339",
+				"container": "geotabapi"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"Customer": {
+					"type": "string"
+				},
+				"VIN": {
+					"type": "integer"
+				},
+				"ProductType": {
+					"type": "string"
+				},
+				"FilterType": {
+					"type": "string"
+				},
+				"SensorType": {
+					"type": "string"
+				},
+				"Temp_value": {
+					"type": "integer"
+				},
+				"density": {
+					"type": "integer"
+				},
+				"pressure_value": {
+					"type": "integer"
+				},
+				"vibration_count": {
+					"type": "integer"
+				},
+				"FilterID": {
+					"type": "integer"
+				},
+				"SensorID": {
+					"type": "integer"
+				}
+			}
+		}
+	}
+}
