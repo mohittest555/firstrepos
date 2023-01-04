@@ -6,6 +6,10 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "testADFmh1"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
 		}
 	},
 	"variables": {
@@ -36,6 +40,81 @@
 				"lastPublishTime": "2023-01-04T10:23:04Z"
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "BMW.json",
+						"folderPath": "02012023/111339",
+						"container": "geotabapi"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"Customer": {
+							"type": "string"
+						},
+						"VIN": {
+							"type": "integer"
+						},
+						"ProductType": {
+							"type": "string"
+						},
+						"FilterType": {
+							"type": "string"
+						},
+						"SensorType": {
+							"type": "string"
+						},
+						"Temp_value": {
+							"type": "integer"
+						},
+						"density": {
+							"type": "integer"
+						},
+						"pressure_value": {
+							"type": "integer"
+						},
+						"vibration_count": {
+							"type": "integer"
+						},
+						"FilterID": {
+							"type": "integer"
+						},
+						"SensorID": {
+							"type": "integer"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
 		}
 	]
 }
